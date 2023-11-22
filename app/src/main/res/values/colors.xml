@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="dark_overlay">#B3000000</color>
+    <color name="dark_purple_text">#FF151940</color>
+    <color name="blue_for_inputText">#314BCE</color>
+    <color name="offWhite_inputText_background">#F5F6FA</color>
+    <color name="blue_primary">#5771F9</color>
+</resources>
