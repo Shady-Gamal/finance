@@ -1,9 +1,10 @@
 package com.example.data.firestore
 
 import com.example.data.model.AppUser
+import com.example.data.model.Recipient
 import com.example.domain.entities.AppUserDTO
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
+import com.example.domain.entities.DataUtils.user
+import com.example.domain.entities.RecipientDTO
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.toObject
@@ -23,7 +24,6 @@ suspend fun addUser(
         user.id = docRef.id
         docRef.set(user)
         .await()
-
 }
 
 suspend fun getUser(
@@ -35,4 +35,28 @@ suspend fun getUser(
         .await()
 
     return user.toObject(AppUser::class.java)
+}
+
+suspend fun saveRecipient(recipientId : String) {
+
+    val recipientInfo = getUser(recipientId)
+
+    getCollectionRef(Recipient.COLLECTION_NAME)
+        .document(user?.id!!)
+        .collection("MyRecipients")
+        .document(recipientId)
+        .set(Recipient(user?.id!!,recipientInfo?.id,recipientInfo?.fullName,null))
+        .await()
+}
+
+suspend fun fetchRecipients() : MutableList<Recipient>? {
+
+    val recipientList  = getCollectionRef(Recipient.COLLECTION_NAME)
+        .document(user?.id!!)
+        .collection("MyRecipients")
+        .get()
+        .await()
+
+    return recipientList.toObjects(Recipient::class.java)
+
 }

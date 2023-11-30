@@ -7,15 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.example.domain.entities.DataUtils
 import com.example.financeapplication.R
 import com.example.financeapplication.databinding.FragmentHomeBinding
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding : FragmentHomeBinding
@@ -30,6 +29,14 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.dataUtils = DataUtils
+        binding.viewModel = this@HomeFragment.viewModel
+
+        binding.RecipientsButton.setOnClickListener {
+
+            findNavController().navigate(R.id.recipientsFragment)
+        }
+
 
 
     }

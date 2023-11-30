@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.entities.AppUserDTO
+import com.example.domain.entities.BankingInfoDTO
 import com.example.domain.models.Resource
 import com.example.domain.repositories.AuthRepository
 import com.example.domain.useCases.SignUpWithEmailAndPasswordUseCase

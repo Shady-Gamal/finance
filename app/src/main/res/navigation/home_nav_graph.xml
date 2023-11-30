@@ -9,5 +9,14 @@
         android:id="@+id/homeFragment"
         android:name="com.example.financeapplication.ui.fragments.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_recipientsFragment"
+            app:destination="@id/recipientsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipientsFragment"
+        android:name="com.example.financeapplication.ui.fragments.recipients.RecipientsFragment"
+        android:label="fragment_recipients"
+        tools:layout="@layout/fragment_recipients" />
 </navigation>

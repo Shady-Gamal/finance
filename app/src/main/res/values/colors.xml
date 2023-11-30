@@ -7,4 +7,7 @@
     <color name="blue_for_inputText">#314BCE</color>
     <color name="offWhite_inputText_background">#F5F6FA</color>
     <color name="blue_primary">#5771F9</color>
+    <color name="purple">#7A7AFD</color>
+    <color name="silver">#F5F6FA</color>
+    <color name="black_icons">#151940</color>
 </resources>

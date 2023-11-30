@@ -36,12 +36,17 @@ class LoginViewModel @Inject constructor(
                 _uiState.update {currentUiState ->
                     currentUiState.copy( isLoggedIn = true, isLoading = false)
                 }
-                Log.e("throne2", it.data?.fullName.toString())
+
             }
             is Resource.Loading -> _uiState.update {currentUiState ->
                 currentUiState.copy( isLoading = true)
             }
-            is Resource.Error -> _uiState.value.error = it.message
+            is Resource.Error -> {
+                _uiState.update { currentUiState ->
+                    currentUiState.copy(error = it.message, isLoading = false)
+
+                }
+            }
 
 
 
