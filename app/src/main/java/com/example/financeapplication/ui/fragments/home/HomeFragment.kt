@@ -1,6 +1,7 @@
 package com.example.financeapplication.ui.fragments.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,8 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.dataUtils = DataUtils
         binding.viewModel = this@HomeFragment.viewModel
+
+        Log.e("tag", DataUtils.user?.profilePictureUrl ?: "jail" )
 
         binding.RecipientsButton.setOnClickListener {
 

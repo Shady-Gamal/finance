@@ -12,7 +12,9 @@ import kotlinx.coroutines.tasks.await
 
 fun getCollectionRef(collectionName: String): CollectionReference {
     return FirebaseFirestore.getInstance()
-        .collection(collectionName)}
+        .collection(collectionName)
+
+}
 
 
 suspend fun addUser(
@@ -21,6 +23,7 @@ suspend fun addUser(
 ) {
    val docRef = getCollectionRef(AppUser.COLLECTION_NAME)
         .document(uid!!)
+
         user.id = docRef.id
         docRef.set(user)
         .await()
@@ -49,7 +52,7 @@ suspend fun saveRecipient(recipientId : String) {
         .await()
 }
 
-suspend fun fetchRecipients() : MutableList<Recipient>? {
+suspend fun fetchRecipients() : MutableList<Recipient> {
 
     val recipientList  = getCollectionRef(Recipient.COLLECTION_NAME)
         .document(user?.id!!)

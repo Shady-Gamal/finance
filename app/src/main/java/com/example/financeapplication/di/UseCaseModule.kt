@@ -2,10 +2,12 @@ package com.example.financeapplication.di
 
 import com.example.domain.repositories.AuthRepository
 import com.example.domain.repositories.RecipientRepository
+import com.example.domain.repositories.StorageRepository
 import com.example.domain.useCases.AddRecipientUseCase
 import com.example.domain.useCases.FetchRecipientsUseCase
 import com.example.domain.useCases.SignInWithEmailAndPasswordUseCase
 import com.example.domain.useCases.SignUpWithEmailAndPasswordUseCase
+import com.example.domain.useCases.UploadImageUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,4 +44,13 @@ object UseCasesModule {
 
         return FetchRecipientsUseCase(recipientRepository)
     }
+
+
+    @Singleton
+    @Provides
+    fun provideUploadImageUseCase(storageRepository: StorageRepository) : UploadImageUseCase{
+
+        return UploadImageUseCase(storageRepository)
+    }
+
 }

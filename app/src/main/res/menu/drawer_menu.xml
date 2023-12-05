@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn= "navigation_view"
+    >
+<group
+    android:checkableBehavior="single"
+    android:id="@+id/line1"
+    >
+    <item
+        android:id="@id/profileFragment"
+        android:title="profile"
+        />
+
+</group>
+
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/line2"
+        >
+        <item
+            android:id="@id/recipientsFragment"
+            android:title="History"
+            />
+
+    </group>
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/line3"
+        >
+        <item
+            android:id="@+id/Recipients"
+            android:title="profile"
+            />
+
+    </group>
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/line4"
+        >
+        <item
+            android:id="@+id/Placeholder"
+            android:title="Placeholder"
+            />
+
+    </group>
+
+
+</menu>

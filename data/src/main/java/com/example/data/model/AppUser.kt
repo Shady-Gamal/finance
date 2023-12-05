@@ -8,6 +8,7 @@ data class AppUser(
     var id : String ?= null,
     var fullName : String ?= null,
     var email : String ?= null,
+    var profilePictureUrl : String ?= null,
     var bankingInfo: BankingInfo = BankingInfo(),
 
 
@@ -29,6 +30,7 @@ fun AppUser.toAppUserDTO() : AppUserDTO {
         id = id,
         fullName = fullName,
         email = email,
+        profilePictureUrl = profilePictureUrl,
         bankingInfo = bankingInfo.toBankingInfoDTO()
 
         )

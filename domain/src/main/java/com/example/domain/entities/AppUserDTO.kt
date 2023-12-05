@@ -4,6 +4,7 @@ data class AppUserDTO(
     var id : String ?= null,
 var fullName : String ?= null,
 var email : String ?= null,
+    var profilePictureUrl : String ?=null,
 var bankingInfo: BankingInfoDTO = BankingInfoDTO()
 )
 
