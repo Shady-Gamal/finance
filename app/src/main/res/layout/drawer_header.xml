@@ -14,19 +14,43 @@
         android:layout_height="match_parent">
 
 
+        <TextView
+            android:id="@+id/close_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CLOSE"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#7F8192"
+            />
+
+
         <ImageView
             android:id="@+id/profile_pic"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintStart_toStartOf="@id/close_text"
+            app:layout_constraintTop_toBottomOf="@id/close_text"
+            android:layout_marginTop="8dp"
+            imageUrl="@{DataUtils.user.profilePictureUrl}"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            />
 
         <TextView
 
             app:layout_constraintStart_toStartOf="@id/profile_pic"
             app:layout_constraintTop_toBottomOf="@id/profile_pic"
             android:layout_width="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_height="match_parent"
+            android:textSize="30sp"
+            android:textColor="#020000"
+            android:textStyle="bold"
             android:text="@{DataUtils.user.fullName}"
 
             />

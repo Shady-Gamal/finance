@@ -41,6 +41,13 @@ class HomeFragment : Fragment() {
         }
 
 
+        binding.transferButton.setOnClickListener {
+
+            requireActivity().finish()
+
+
+        }
+
 
     }
 

@@ -12,7 +12,7 @@ interface AuthRepository {
 
     suspend fun singUpWithEmailAndPassword (email: String, password: String, user : AppUserDTO) : Flow<Resource<Boolean>>
 
-    //suspend fun signOut(): Flow<Resource<Boolean>>
+    suspend fun signOut(): Flow<Resource<Boolean>>
 
     //fun getFirebaseAuthState(): Flow<Boolean>
 }

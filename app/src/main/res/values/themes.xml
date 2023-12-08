@@ -19,7 +19,7 @@
 
     <style name="HomeScreenButton" parent="Widget.Material3.Button.IconButton.Filled">
         <item name="backgroundTint">@color/silver</item>
-        <item name="iconTint">@color/black_icons</item>
+        <item name="iconTint">@color/dark_purple</item>
     </style>
 
 

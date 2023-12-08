@@ -16,6 +16,10 @@
             android:id="@+id/recipients_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="42sp"
+            android:textColor="@color/dark_purple"
             android:text="Recipients" />
 
         <com.google.android.material.button.MaterialButton

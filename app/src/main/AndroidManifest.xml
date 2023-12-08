@@ -25,10 +25,12 @@
             <meta-data android:name="photopicker_activity:0:required" android:value="" />
         </service>
         <activity
-            android:name=".ui.activities.HomeActivity.HomeActivity"
+            android:name=".ui.activities.homeActivity.HomeActivity"
+            android:launchMode="singleTop"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.AuthenticationActivity.AuthenticationActivity"
+            android:name=".ui.activities.authenticationActivity.AuthenticationActivity"
+            android:launchMode="singleTop"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -48,7 +48,7 @@ suspend fun saveRecipient(recipientId : String) {
         .document(user?.id!!)
         .collection("MyRecipients")
         .document(recipientId)
-        .set(Recipient(user?.id!!,recipientInfo?.id,recipientInfo?.fullName,null))
+        .set(Recipient(user?.id!!,recipientInfo?.id,recipientInfo?.fullName,recipientInfo?.profilePictureUrl))
         .await()
 }
 

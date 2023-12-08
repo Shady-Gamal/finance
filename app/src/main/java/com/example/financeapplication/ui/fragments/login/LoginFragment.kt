@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -32,7 +33,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
         return binding.root
     }
@@ -40,6 +41,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.e("don'tshoot ", "u r him and he is you: ", )
         binding.viewModel = this@LoginFragment.viewModel
         binding.registerText.setOnClickListener{
             findNavController().navigate(R.id.registerFragment)
@@ -49,7 +51,13 @@ class LoginFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED)  {
                 viewModel.uiState.collect { uiState ->
                     if (uiState.isLoggedIn) {
-                        findNavController().navigate(R.id.home_activity)
+                        findNavController().navigate(R.id.action_loginFragment_to_home_activity)
+                        Log.e("simbi", "yup" )
+
+                        (parentFragmentManager.findFragmentByTag("homeboi") as? DialogFragment)?.dismiss()
+
+
+
                     } else if (uiState.isLoading){
                         LoadingFragment().show(
                             childFragmentManager, "homeboi"
@@ -63,6 +71,8 @@ class LoginFragment : Fragment() {
                     }
         }
         }
+
     }
+
 
 }

@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+            <variable
+                name="viewModel"
+                type="com.example.financeapplication.ui.activities.homeActivity.HomeViewModel" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.activities.HomeActivity.HomeActivity">
+        tools:context=".ui.activities.homeActivity.HomeActivity">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/overview_coordinator_layout"
@@ -64,16 +66,24 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             app:menu="@menu/drawer_menu"
-            app:headerLayout="@layout/drawer_header"
             android:fitsSystemWindows="false" >
 
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/logout_text"
+                android:layout_marginHorizontal="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/blue_for_inputText"
+                android:drawableEnd="@drawable/arrow_forward"
+                android:drawablePadding="5dp"
+                android:drawableTint="@color/blue_for_inputText"
+                android:layout_marginBottom="20dp"
+                android:textStyle="bold"
                 android:layout_gravity="bottom"
-                android:gravity="bottom"
-                android:text="gangsta"/>
+                android:clickable="true"
+                android:focusable="true"
+                android:text="L O G O U T" />
         </com.google.android.material.navigation.NavigationView>
 
     </androidx.drawerlayout.widget.DrawerLayout>

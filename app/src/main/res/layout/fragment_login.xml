@@ -29,7 +29,7 @@
             android:textSize="44sp"
             android:layout_marginTop="20dp"
             android:layout_marginStart="30dp"
-            android:textColor="@color/dark_purple_text"
+            android:textColor="@color/dark_purple"
             android:textStyle="bold"
             android:text="Log In"
 
@@ -97,6 +97,7 @@
             app:layout_constraintTop_toBottomOf="@id/forgot_password_text"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="20dp"
+            android:id="@+id/login_button"
             app:layout_constraintEnd_toEndOf="parent"
             android:onClick="@{()->viewModel.signInWithEmailAndPassword()}"
             android:hint="Login"
@@ -123,7 +124,7 @@
             android:layout_height="wrap_content"
             android:text="Don't have an account?"
             android:layout_marginVertical="5dp"
-            android:textColor="@color/dark_purple_text"
+            android:textColor="@color/dark_purple"
             app:layout_constraintBottom_toTopOf="@id/register_text"
             app:layout_constraintStart_toStartOf="@+id/register_text"
             />

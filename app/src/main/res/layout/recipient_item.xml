@@ -17,6 +17,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:layout_constraintStart_toStartOf="parent"
+            imageUrl="@{recipientItem.recipientPhoto}"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView

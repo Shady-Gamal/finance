@@ -7,7 +7,7 @@ data class Recipient(
     val userId : String = user?.id!!,
     val recipientId:String ?=null,
     val recipientFullName:String ?=null,
-    val recipientPhoto : String ?= null
+    val recipientProfilePictureUrl: String ?= null
 ){
     companion object{
         val COLLECTION_NAME = "Recipients"
@@ -20,7 +20,7 @@ fun Recipient.toARecipientDTO() : RecipientDTO {
     return RecipientDTO(
         recipientId = recipientId,
         recipientFullName = recipientFullName,
-        recipientPhoto = recipientPhoto,
+        recipientPhoto = recipientProfilePictureUrl,
         userId = userId
 
     )

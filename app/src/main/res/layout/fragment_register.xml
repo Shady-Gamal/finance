@@ -31,7 +31,7 @@
             android:textSize="44sp"
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
-            android:textColor="@color/dark_purple_text"
+            android:textColor="@color/dark_purple"
 
             android:textStyle="bold"
             android:text="Register"
@@ -156,7 +156,7 @@
             android:layout_height="wrap_content"
             android:text="Already have an Account?"
             android:layout_marginVertical="5dp"
-            android:textColor="@color/dark_purple_text"
+            android:textColor="@color/dark_purple"
             app:layout_constraintBottom_toTopOf="@id/login_text"
             app:layout_constraintStart_toStartOf="@+id/login_text"
             />

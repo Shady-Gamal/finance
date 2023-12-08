@@ -1,5 +1,6 @@
 package com.example.data.repositoryContracts
 
+import android.util.Log
 import com.example.data.firestore.addUser
 import com.example.data.firestore.getUser
 import com.example.data.model.AppUser
@@ -44,5 +45,19 @@ class AuthRepositoryImpl @Inject constructor(
             emit(Resource.Success(true))
         }.onStart { emit(Resource.Loading()) }
             .catch { emit (Resource.Error(it.message ?: "error")) }
+    }
+
+    override suspend fun signOut(): Flow<Resource<Boolean>> {
+        return flow<Resource<Boolean>> {
+
+            auth.signOut()
+            Log.e("break", "signOut: ", )
+            emit(Resource.Success(true))
+
+        }.onStart {
+            emit(Resource.Loading())
+        }.catch {
+            emit(Resource.Error(it.message ?: "an error has ocured"))
+        }
     }
 }
