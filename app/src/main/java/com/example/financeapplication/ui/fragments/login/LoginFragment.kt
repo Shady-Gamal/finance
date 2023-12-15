@@ -41,7 +41,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.e("don'tshoot ", "u r him and he is you: ", )
+
         binding.viewModel = this@LoginFragment.viewModel
         binding.registerText.setOnClickListener{
             findNavController().navigate(R.id.registerFragment)
@@ -52,7 +52,7 @@ class LoginFragment : Fragment() {
                 viewModel.uiState.collect { uiState ->
                     if (uiState.isLoggedIn) {
                         findNavController().navigate(R.id.action_loginFragment_to_home_activity)
-                        Log.e("simbi", "yup" )
+
 
                         (parentFragmentManager.findFragmentByTag("homeboi") as? DialogFragment)?.dismiss()
 

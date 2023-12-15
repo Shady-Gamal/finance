@@ -4,7 +4,7 @@ import com.example.domain.entities.AppUserDTO
 import com.example.domain.models.Resource
 import kotlinx.coroutines.flow.Flow
 
-interface AuthRepository {
+interface UserRepository {
 
     //fun isUserAuthenticatedInFirebase(): Boolean
 
@@ -13,6 +13,8 @@ interface AuthRepository {
     suspend fun singUpWithEmailAndPassword (email: String, password: String, user : AppUserDTO) : Flow<Resource<Boolean>>
 
     suspend fun signOut(): Flow<Resource<Boolean>>
+
+    suspend fun updateUserData(user : AppUserDTO) : Flow<Resource<Boolean>>
 
     //fun getFirebaseAuthState(): Flow<Boolean>
 }

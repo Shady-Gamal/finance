@@ -33,18 +33,15 @@ class HomeFragment : Fragment() {
         binding.dataUtils = DataUtils
         binding.viewModel = this@HomeFragment.viewModel
 
-        Log.e("tag", DataUtils.user?.profilePictureUrl ?: "jail" )
 
         binding.RecipientsButton.setOnClickListener {
 
             findNavController().navigate(R.id.recipientsFragment)
         }
 
-
         binding.transferButton.setOnClickListener {
 
             requireActivity().finish()
-
 
         }
 

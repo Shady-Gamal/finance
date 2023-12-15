@@ -1,17 +1,16 @@
 package com.example.financeapplication.ui.activities.homeActivity
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.entities.DataUtils
 import com.example.domain.models.Resource
 import com.example.domain.useCases.SignOutUseCase
-import com.example.financeapplication.ui.fragments.login.LoginState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,6 +23,9 @@ class HomeViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(LogoutState())
     val uiState: StateFlow<LogoutState> = _uiState.asStateFlow()
 
+    private val _refreshDrawerHeader = Channel<Boolean>()
+    val refreshDrawerHeader = _refreshDrawerHeader.receiveAsFlow()
+
     fun signOut(){
         viewModelScope.launch {
             signOutUseCase.invoke().collect() {
@@ -33,7 +35,7 @@ class HomeViewModel @Inject constructor(
                             _uiState.update {currentUiState ->
                                 currentUiState.copy( isLoggedOut = true, isLoading = false)
                             }
-                            Log.e("TAG", "yo")
+
                             DataUtils.user = null
 
                         }
@@ -57,4 +59,12 @@ class HomeViewModel @Inject constructor(
 
         }
     }
+
+    fun refreshDrawerHeader(it:Boolean){
+
+        viewModelScope.launch {
+            _refreshDrawerHeader.send(it)
+        }
+    }
+
 }

@@ -20,8 +20,8 @@ class LoginViewModel @Inject constructor(
     val signInWithEmailAndPasswordUseCase: SignInWithEmailAndPasswordUseCase
 ) : ViewModel(){
 
-    var email : MutableLiveData<String> = MutableLiveData()
-    var password : MutableLiveData<String> = MutableLiveData()
+    var email : String ?= null
+    var password : String ?= null
     private val _uiState = MutableStateFlow(LoginState())
     val uiState: StateFlow<LoginState> = _uiState.asStateFlow()
 
@@ -29,14 +29,13 @@ class LoginViewModel @Inject constructor(
     fun signInWithEmailAndPassword(){
 
         viewModelScope.launch {
-            signInWithEmailAndPasswordUseCase.invoke(email.value!!, password.value!!).collect() {
+            signInWithEmailAndPasswordUseCase.invoke(email!!, password!!).collect() {
         when (it){
             is Resource.Success -> {
                 user = it.data
                 _uiState.update {currentUiState ->
                     currentUiState.copy( isLoggedIn = true, isLoading = false)
                 }
-
             }
             is Resource.Loading -> _uiState.update {currentUiState ->
                 currentUiState.copy( isLoading = true)
@@ -47,16 +46,13 @@ class LoginViewModel @Inject constructor(
 
                 }
             }
-
-
-
-
         }
 
             }
         }
 
     }
+
 
 
 }

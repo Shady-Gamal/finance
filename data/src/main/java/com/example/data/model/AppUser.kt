@@ -10,6 +10,11 @@ data class AppUser(
     var email : String ?= null,
     var profilePictureUrl : String ?= null,
     var bankingInfo: BankingInfo = BankingInfo(),
+    var country : String ?= null,
+    var zipCode : String ?= null,
+    var address : String ?= null,
+    var phoneNumber : String = "000000000000",
+    var optionalAddress : String ?=null,
 
 
     ){
@@ -31,7 +36,12 @@ fun AppUser.toAppUserDTO() : AppUserDTO {
         fullName = fullName,
         email = email,
         profilePictureUrl = profilePictureUrl,
-        bankingInfo = bankingInfo.toBankingInfoDTO()
+        bankingInfo = bankingInfo.toBankingInfoDTO(),
+        phoneNumber = phoneNumber,
+        address = address,
+        country = country,
+        optionalAddress = optionalAddress,
+        zipCode = zipCode
 
         )
 }

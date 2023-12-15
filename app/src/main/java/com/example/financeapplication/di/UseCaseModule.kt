@@ -1,6 +1,6 @@
 package com.example.financeapplication.di
 
-import com.example.domain.repositories.AuthRepository
+import com.example.domain.repositories.UserRepository
 import com.example.domain.repositories.RecipientRepository
 import com.example.domain.repositories.StorageRepository
 import com.example.domain.useCases.AddRecipientUseCase
@@ -8,6 +8,7 @@ import com.example.domain.useCases.FetchRecipientsUseCase
 import com.example.domain.useCases.SignInWithEmailAndPasswordUseCase
 import com.example.domain.useCases.SignOutUseCase
 import com.example.domain.useCases.SignUpWithEmailAndPasswordUseCase
+import com.example.domain.useCases.UpdateUserDataUseCase
 import com.example.domain.useCases.UploadImageUseCase
 import dagger.Module
 import dagger.Provides
@@ -22,14 +23,14 @@ object UseCasesModule {
 
     @Singleton
     @Provides
-    fun provideSingUpWithEmailAndPasswordUseCaseUseCase(authRepository: AuthRepository): SignUpWithEmailAndPasswordUseCase {
-        return SignUpWithEmailAndPasswordUseCase(authRepository)
+    fun provideSingUpWithEmailAndPasswordUseCaseUseCase(userRepository: UserRepository): SignUpWithEmailAndPasswordUseCase {
+        return SignUpWithEmailAndPasswordUseCase(userRepository)
     }
 
     @Singleton
     @Provides
-    fun provideSingIpWithEmailAndPasswordUseCaseUseCase(authRepository: AuthRepository): SignInWithEmailAndPasswordUseCase {
-        return SignInWithEmailAndPasswordUseCase(authRepository)
+    fun provideSingIpWithEmailAndPasswordUseCaseUseCase(userRepository: UserRepository): SignInWithEmailAndPasswordUseCase {
+        return SignInWithEmailAndPasswordUseCase(userRepository)
     }
 
     @Singleton
@@ -57,9 +58,16 @@ object UseCasesModule {
 
     @Singleton
     @Provides
-    fun provideSignOutUseCase(authRepository: AuthRepository) : SignOutUseCase{
+    fun provideSignOutUseCase(userRepository: UserRepository) : SignOutUseCase{
 
-        return SignOutUseCase(authRepository)
+        return SignOutUseCase(userRepository)
     }
 
+
+    @Singleton
+    @Provides
+    fun provideUpdateUserDataUserCase(userRepository: UserRepository) : UpdateUserDataUseCase{
+
+        return UpdateUserDataUseCase(userRepository)
+    }
 }

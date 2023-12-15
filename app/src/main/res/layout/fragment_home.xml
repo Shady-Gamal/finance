@@ -7,7 +7,6 @@
 <variable
     name="DataUtils"
     type="com.example.domain.entities.DataUtils" />
-
         <variable
             name="viewModel"
             type="com.example.financeapplication.ui.fragments.home.HomeViewModel" />
@@ -54,7 +53,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="20dp"
+                    android:layout_marginVertical="15dp"
                     android:text="@{DataUtils.user.id}"
                     android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"

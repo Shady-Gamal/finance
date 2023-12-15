@@ -26,7 +26,6 @@
         </service>
         <activity
             android:name=".ui.activities.homeActivity.HomeActivity"
-            android:launchMode="singleTop"
             android:exported="false" />
         <activity
             android:name=".ui.activities.authenticationActivity.AuthenticationActivity"

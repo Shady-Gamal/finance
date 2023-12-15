@@ -9,4 +9,5 @@
     <color name="blue_primary">#5771F9</color>
     <color name="purple">#7A7AFD</color>
     <color name="silver">#F5F6FA</color>
+    <color name="black_transparent">#9A000000</color>
 </resources>

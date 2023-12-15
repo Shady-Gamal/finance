@@ -6,9 +6,11 @@ import com.example.data.firestore.getUser
 import com.example.data.model.AppUser
 import com.example.data.model.toAppUserDTO
 import com.example.domain.entities.AppUserDTO
+import com.example.domain.entities.DataUtils
 import com.example.domain.models.Resource
-import com.example.domain.repositories.AuthRepository
+import com.example.domain.repositories.UserRepository
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -17,9 +19,10 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 
-class AuthRepositoryImpl @Inject constructor(
-    private val auth: FirebaseAuth
-) : AuthRepository {
+class UserRepositoryImpl @Inject constructor(
+    private val auth: FirebaseAuth,
+    val firestore: FirebaseFirestore
+) : UserRepository {
     override suspend fun signInWithEmailAndPassword(
         email: String,
         password: String,
@@ -51,7 +54,6 @@ class AuthRepositoryImpl @Inject constructor(
         return flow<Resource<Boolean>> {
 
             auth.signOut()
-            Log.e("break", "signOut: ", )
             emit(Resource.Success(true))
 
         }.onStart {
@@ -59,5 +61,24 @@ class AuthRepositoryImpl @Inject constructor(
         }.catch {
             emit(Resource.Error(it.message ?: "an error has ocured"))
         }
+    }
+
+    override suspend fun updateUserData(user: AppUserDTO): Flow<Resource<Boolean>> {
+
+        return flow<Resource<Boolean>>{
+
+            firestore
+                .collection(AppUser.COLLECTION_NAME)
+                .document(DataUtils.user?.id!!)
+                .set(user)
+                .await()
+            emit(Resource.Success(true))
+
+        }.onStart {
+            emit(Resource.Loading())
+        }.catch {
+            emit(Resource.Error(it.message ?: "error"))
+        }
+
     }
 }

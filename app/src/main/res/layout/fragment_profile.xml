@@ -5,9 +5,15 @@
 
     <data>
         <variable
-            name="DataUtils"
-            type="com.example.domain.entities.DataUtils" />
+            name="viewModel"
+            type="com.example.financeapplication.ui.fragments.profile.ProfileViewModel" />
+
+
     </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,19 +28,35 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="30dp"
             android:textSize="30sp"
+            android:textColor="@color/black"
             android:text="Edit Profile" />
 
         <ImageView
             android:id="@+id/profile_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_profile_text"
             android:clickable="true"
             android:focusable="true"
-            imageUrl="@{DataUtils.user.profilePictureUrl}"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="18dp"
+            imageUrl="@{viewModel.profileInfo.profilePictureUrl}"/>
 
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progress_circular"
+           android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:visibility="invisible"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/blue_primary"
+            app:layout_constraintStart_toStartOf="@id/profile_image"
+            app:indicatorSize="50dp"
+            app:layout_constraintEnd_toEndOf="@id/profile_image"
+            app:layout_constraintTop_toTopOf="@id/profile_image"
+            app:layout_constraintBottom_toBottomOf="@id/profile_image"
             />
 
         <TextView
@@ -44,9 +66,300 @@
             android:layout_height="wrap_content"
             android:text="Change Profile Picture"
             app:layout_constraintStart_toStartOf="@id/profile_image"
+            android:layout_marginTop="14dp"
             app:layout_constraintEnd_toEndOf="@id/profile_image"
             app:layout_constraintTop_toBottomOf="@id/profile_image"
             android:focusable="true" />
 
+        <TextView
+            android:id="@+id/fullName_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="40dp"
+            android:text="Full Name"
+            app:layout_constraintTop_toBottomOf="@id/change_profile_pic_text"
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edit_fullName_layout"
+            android:layout_width="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="30dp"
+            app:layout_constraintTop_toBottomOf="@id/fullName_label"
+            style="@style/TextInputLayoutStyleProfile"
+            app:hintEnabled="false"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp"
+            android:layout_marginTop="8dp"
+            android:hint="Full Name"
+            app:endIconMode="custom"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_fullName_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="false"
+                android:text="@={viewModel.profileInfo.fullName}"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/email_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="14dp"
+            android:text="Email"
+            app:layout_constraintTop_toBottomOf="@id/edit_fullName_layout"
+            />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edit_email_layout"
+            android:layout_width="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/email_label"
+            style="@style/TextInputLayoutStyleProfile"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_email_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@={viewModel.profileInfo.email}"
+                android:focusable="false"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/password_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="14dp"
+            android:text="Password"
+            app:layout_constraintTop_toBottomOf="@id/edit_email_layout"
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edit_password_layout"
+            android:layout_width="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/password_label"
+            style="@style/TextInputLayoutStyleProfile"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_password_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="FakePassword"
+                android:inputType="textPassword"
+                android:focusable="false"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/phoneNumber_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="14dp"
+            android:text="phone number"
+            app:layout_constraintTop_toBottomOf="@id/edit_password_layout"
+            />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edit_phoneNumber_layout"
+            android:layout_width="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/phoneNumber_label"
+            style="@style/TextInputLayoutStyleProfile"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_phoneNumber_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@={viewModel.profileInfo.phoneNumber}"
+                android:focusable="false"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/address_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="14dp"
+            android:text="Address"
+            app:layout_constraintTop_toBottomOf="@id/edit_phoneNumber_layout"
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edit_address_layout"
+            android:layout_width="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/address_label"
+            style="@style/TextInputLayoutStyleProfile"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_address_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Address 1"
+                android:text="@={viewModel.profileInfo.address}"
+                android:focusable="false"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edit_optionalAddress_layout"
+            android:layout_width="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_address_layout"
+            style="@style/TextInputLayoutStyleProfile"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="8dp"
+
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_optionalAddress_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Address 2 (Optional)"
+                android:text="@={viewModel.profileInfo.optionalAddress}"
+                android:focusable="false"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edit_country_layout"
+            android:layout_width="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/edit_zipCode_layout"
+            app:layout_constraintTop_toBottomOf="@id/edit_optionalAddress_layout"
+            style="@style/TextInputLayoutStyleProfile"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="5dp"
+            android:layout_height="wrap_content">
+
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_country_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@={viewModel.profileInfo.country}"
+            android:hint="Country"
+            android:focusable="false"
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edit_zipCode_layout"
+            android:layout_width="0dp"
+            app:layout_constraintStart_toEndOf="@id/edit_country_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_optionalAddress_layout"
+            style="@style/TextInputLayoutStyleProfile"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="5dp"
+            android:hint="Zipcode"
+            android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_zipCode_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@={viewModel.profileInfo.zipCode}"
+            android:hint="ZipCode"
+            android:focusable="false"
+
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_country_layout"
+            app:cornerRadius="10dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="20dp"
+            android:hint="Save Changes"
+            android:id="@+id/save_button"
+            android:textColorHint="@color/white"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:onClick="@{()->viewModel.updateUserData()}"
+            />
+
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 </layout>

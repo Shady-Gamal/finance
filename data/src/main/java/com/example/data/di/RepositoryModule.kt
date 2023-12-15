@@ -1,9 +1,9 @@
 package com.example.data.di
 
-import com.example.data.repositoryContracts.AuthRepositoryImpl
+import com.example.data.repositoryContracts.UserRepositoryImpl
 import com.example.data.repositoryContracts.RecipientRepositoryImpl
 import com.example.data.repositoryContracts.StorageRepositoryImpl
-import com.example.domain.repositories.AuthRepository
+import com.example.domain.repositories.UserRepository
 import com.example.domain.repositories.RecipientRepository
 import com.example.domain.repositories.StorageRepository
 import dagger.Binds
@@ -18,7 +18,7 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindAuthRepository(authRepositoryImpl: AuthRepositoryImpl) : AuthRepository
+    abstract fun bindAuthRepository(authRepositoryImpl: UserRepositoryImpl) : UserRepository
     @Binds
     @Singleton
    abstract fun bindRecipientRepository(recipientRepositoryImpl: RecipientRepositoryImpl) : RecipientRepository

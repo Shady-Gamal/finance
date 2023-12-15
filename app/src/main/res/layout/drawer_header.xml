@@ -6,7 +6,9 @@
         <variable
             name="DataUtils"
             type="com.example.domain.entities.DataUtils" />
+
     </data>
+
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,6 +45,7 @@
 
         <TextView
 
+            android:id="@+id/fullName"
             app:layout_constraintStart_toStartOf="@id/profile_pic"
             app:layout_constraintTop_toBottomOf="@id/profile_pic"
             android:layout_width="wrap_content"
