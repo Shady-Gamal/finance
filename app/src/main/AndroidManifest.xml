@@ -26,16 +26,20 @@
         </service>
         <activity
             android:name=".ui.activities.homeActivity.HomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activities.authenticationActivity.AuthenticationActivity"
-            android:launchMode="singleTop"
-            android:exported="true">
+            android:theme="@style/Theme.App.starting"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".ui.activities.authenticationActivity.AuthenticationActivity"
+            android:theme="@style/Theme.FinanceApplication"
+            android:exported="true">
+
         </activity>
 
 

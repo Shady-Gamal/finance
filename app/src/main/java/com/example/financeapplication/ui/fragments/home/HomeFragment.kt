@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
 
         binding.transferButton.setOnClickListener {
 
-            requireActivity().finish()
+            findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
 
         }
 

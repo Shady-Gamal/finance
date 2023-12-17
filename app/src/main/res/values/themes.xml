@@ -10,6 +10,7 @@
         <item name="windowSplashScreenBackground">@color/blue_primary</item>
         <item name="postSplashScreenTheme">@style/Theme.FinanceApplication</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/animated_logo</item>
+
         
     </style>
 

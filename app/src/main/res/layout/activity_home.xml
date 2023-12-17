@@ -35,7 +35,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="?attr/actionBarSize"
-                    app:navigationIcon="@drawable/arrow_forward"
                     app:contentInsetStartWithNavigation="0dp"
                     android:layout_marginHorizontal="14dp"
 
@@ -53,7 +52,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:defaultNavHost="true"
-                app:navGraph="@navigation/home_nav_graph"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 

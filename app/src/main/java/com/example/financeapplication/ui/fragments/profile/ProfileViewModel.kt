@@ -69,7 +69,6 @@ class ProfileViewModel @Inject constructor(
 
     fun updateUserData() {
         viewModelScope.launch {
-
             updateUserDataUseCase.invoke(profileInfo).collect() {
 
                 when (it){

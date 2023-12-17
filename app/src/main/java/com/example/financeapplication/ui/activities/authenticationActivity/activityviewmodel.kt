@@ -8,13 +8,5 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class activityviewmodel : ViewModel() {
-    private val _isReady = MutableStateFlow(false)
-    val isReady = _isReady.asStateFlow()
 
-    init {
-        viewModelScope.launch {
-            delay(3000L)
-            _isReady.value = true
-        }
-    }
 }

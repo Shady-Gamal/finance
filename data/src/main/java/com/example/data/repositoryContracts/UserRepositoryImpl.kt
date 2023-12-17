@@ -10,6 +10,7 @@ import com.example.domain.entities.DataUtils
 import com.example.domain.models.Resource
 import com.example.domain.repositories.UserRepository
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -23,6 +24,10 @@ class UserRepositoryImpl @Inject constructor(
     private val auth: FirebaseAuth,
     val firestore: FirebaseFirestore
 ) : UserRepository {
+    override fun isUserAuthenticatedInFirebase(): String? {
+        return auth.currentUser?.uid
+    }
+
     override suspend fun signInWithEmailAndPassword(
         email: String,
         password: String,
@@ -74,6 +79,19 @@ class UserRepositoryImpl @Inject constructor(
                 .await()
             emit(Resource.Success(true))
 
+        }.onStart {
+            emit(Resource.Loading())
+        }.catch {
+            emit(Resource.Error(it.message ?: "error"))
+        }
+
+    }
+
+    override suspend fun getUserData(id: String): Flow<Resource<AppUserDTO>> {
+        return flow<Resource<AppUserDTO>> {
+
+            val user = getUser(id)
+            emit(Resource.Success(user?.toAppUserDTO()!!))
         }.onStart {
             emit(Resource.Loading())
         }.catch {

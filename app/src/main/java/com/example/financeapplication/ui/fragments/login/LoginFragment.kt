@@ -52,6 +52,7 @@ class LoginFragment : Fragment() {
                 viewModel.uiState.collect { uiState ->
                     if (uiState.isLoggedIn) {
                         findNavController().navigate(R.id.action_loginFragment_to_home_activity)
+                        requireActivity().finish()
 
 
                         (parentFragmentManager.findFragmentByTag("homeboi") as? DialogFragment)?.dismiss()

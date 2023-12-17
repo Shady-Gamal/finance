@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.entities.DataUtils.user
+import com.example.domain.entities.DataUtils
 import com.example.domain.models.Resource
 import com.example.domain.useCases.SignInWithEmailAndPasswordUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,7 +32,7 @@ class LoginViewModel @Inject constructor(
             signInWithEmailAndPasswordUseCase.invoke(email!!, password!!).collect() {
         when (it){
             is Resource.Success -> {
-                user = it.data
+                DataUtils.user = it.data
                 _uiState.update {currentUiState ->
                     currentUiState.copy( isLoggedIn = true, isLoading = false)
                 }

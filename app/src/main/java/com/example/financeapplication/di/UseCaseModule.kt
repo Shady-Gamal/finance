@@ -5,6 +5,8 @@ import com.example.domain.repositories.RecipientRepository
 import com.example.domain.repositories.StorageRepository
 import com.example.domain.useCases.AddRecipientUseCase
 import com.example.domain.useCases.FetchRecipientsUseCase
+import com.example.domain.useCases.GetUserDataUseCase
+import com.example.domain.useCases.IsUserAuthenticatedUseCase
 import com.example.domain.useCases.SignInWithEmailAndPasswordUseCase
 import com.example.domain.useCases.SignOutUseCase
 import com.example.domain.useCases.SignUpWithEmailAndPasswordUseCase
@@ -69,5 +71,19 @@ object UseCasesModule {
     fun provideUpdateUserDataUserCase(userRepository: UserRepository) : UpdateUserDataUseCase{
 
         return UpdateUserDataUseCase(userRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideIsUserAuthenticatedUseCase(userRepository: UserRepository) : IsUserAuthenticatedUseCase{
+
+        return IsUserAuthenticatedUseCase(userRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetUserData(userRepository: UserRepository) : GetUserDataUseCase{
+
+        return GetUserDataUseCase(userRepository)
     }
 }
