@@ -1,8 +1,10 @@
 package com.example.financeapplication.ui.activities.homeActivity
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.entities.AppUserDTO
 import com.example.domain.entities.DataUtils
 import com.example.domain.models.Resource
 import com.example.domain.useCases.IsUserAuthenticatedUseCase
@@ -43,6 +45,7 @@ class HomeViewModel @Inject constructor(
     val isAuthenticated = isUserAuthenticatedUseCase.invoke()
 
 
+
     init {
 
         viewModelScope.launch {
@@ -53,7 +56,9 @@ class HomeViewModel @Inject constructor(
                 _isReady.value = true
 
                 return@launch
-            }else if (DataUtils.user == null) {
+            }else if (DataUtils.user?.value == null) {
+                _isReady.value = true
+
                 Log.e("when data utils is null", DataUtils.user.toString() )
                 getUserData()
                 return@launch
@@ -72,8 +77,9 @@ class HomeViewModel @Inject constructor(
             getUserDataUseCase.invoke(isAuthenticated!!).collect() {
                 when (it) {
                     is Resource.Success -> {
-                        DataUtils.user = it.data
-                        _isReady.value = true
+
+                        DataUtils.user?.value = it.data
+                        Log.e("getuser", DataUtils.user?.value?.fullName ?: "hmm again" )
 
                         _userDataState.update { currentUiState ->
                             currentUiState.copy(isLoaded = it.data,)
@@ -113,8 +119,6 @@ class HomeViewModel @Inject constructor(
                                 currentUiState.copy( isLoggedOut = true, isLoading = false)
                             }
 
-                            DataUtils.user = null
-
                         }
                         is Resource.Loading -> _logoutState.update { currentUiState ->
                             currentUiState.copy( isLoading = true)
@@ -125,11 +129,6 @@ class HomeViewModel @Inject constructor(
                                 currentUiState.copy(error = it.message, isLoading = false)
 
                             }
-
-
-
-
-
                     }
                 }
 

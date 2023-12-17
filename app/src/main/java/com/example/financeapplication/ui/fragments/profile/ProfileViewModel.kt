@@ -32,7 +32,7 @@ class ProfileViewModel @Inject constructor(
     val uiState: StateFlow<UploadState> = _uiState.asStateFlow()
     private val _updateState = MutableStateFlow(UpdateState())
     val updateState: StateFlow<UpdateState> = _updateState.asStateFlow()
-    var profileInfo: AppUserDTO = DataUtils.user!!.copy()
+    var profileInfo: AppUserDTO = DataUtils.user!!.value?.copy()!!
 
 
 
@@ -74,7 +74,9 @@ class ProfileViewModel @Inject constructor(
                 when (it){
                     is Resource.Success -> {
                         _updateState.update {currentUiState ->
-                            DataUtils.user = profileInfo.copy()
+                            DataUtils.user?.value = profileInfo.copy(
+                                profilePictureUrl = DataUtils.user?.value?.profilePictureUrl
+                            )
                             currentUiState.copy( isUpdated = true)
                         }
                     }

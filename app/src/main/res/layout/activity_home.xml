@@ -79,8 +79,6 @@
                 android:layout_marginBottom="20dp"
                 android:textStyle="bold"
                 android:layout_gravity="bottom"
-                android:clickable="true"
-                android:focusable="true"
                 android:text="L O G O U T" />
         </com.google.android.material.navigation.NavigationView>
 

@@ -1,5 +1,8 @@
 package com.example.domain.entities
 
+
+import androidx.lifecycle.MutableLiveData
+
 data class AppUserDTO(
     var id : String ?= null,
     var fullName : String ?= null,
@@ -20,7 +23,7 @@ data class BankingInfoDTO(
 )
 
 object DataUtils {
-        var user : AppUserDTO ?= null
+        var user : MutableLiveData<AppUserDTO?>? = MutableLiveData()
     }
 
 

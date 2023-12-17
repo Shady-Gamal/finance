@@ -67,7 +67,7 @@ class ProfileFragment : Fragment() {
                 viewModel.uiState.collect { uiState ->
                     if (uiState.isUploaded) {
                         Toast.makeText(requireContext(), "Photo updated", Toast.LENGTH_SHORT).show()
-                        Glide.with(this@ProfileFragment).load(DataUtils.user?.profilePictureUrl).into(binding.profileImage)
+                        Glide.with(this@ProfileFragment).load(DataUtils.user?.value?.profilePictureUrl).into(binding.profileImage)
                         activityViewModel.refreshDrawerHeader(uiState.isUploaded)
                         fileDescriptor.close()
                         binding.progressCircular.visibility = View.GONE
@@ -111,13 +111,13 @@ class ProfileFragment : Fragment() {
 
         binding.editFullNameLayout.setEndIconOnClickListener {
 
-            viewModel.handleInputLayout(it, binding.editFullNameText, DataUtils.user?.fullName!!)
+            viewModel.handleInputLayout(it, binding.editFullNameText, DataUtils.user?.value?.fullName!!)
         }
 
 
         binding.editEmailLayout.setEndIconOnClickListener {
 
-            viewModel.handleInputLayout(it, binding.editEmailText, DataUtils.user?.email!!)
+            viewModel.handleInputLayout(it, binding.editEmailText, DataUtils.user?.value?.email!!)
         }
 
         binding.editPasswordLayout.setEndIconOnClickListener {
@@ -131,22 +131,22 @@ class ProfileFragment : Fragment() {
 
         binding.editAddressLayout.setEndIconOnClickListener {
 
-            viewModel.handleInputLayout(it, binding.editAddressText, DataUtils.user?.address ?: "")
+            viewModel.handleInputLayout(it, binding.editAddressText, DataUtils.user?.value?.address ?: "")
         }
 
         binding.editOptionalAddressText.setOnClickListener {
 
-            viewModel.handleInputLayout(it, binding.editOptionalAddressText, DataUtils.user?.optionalAddress ?: "")
+            viewModel.handleInputLayout(it, binding.editOptionalAddressText, DataUtils.user?.value?.optionalAddress ?: "")
         }
 
         binding.editCountryLayout.setEndIconOnClickListener {
 
-            viewModel.handleInputLayout(it, binding.editCountryText, DataUtils.user?.optionalAddress ?: "")
+            viewModel.handleInputLayout(it, binding.editCountryText, DataUtils.user?.value?.optionalAddress ?: "")
         }
 
         binding.editZipCodeLayout.setEndIconOnClickListener {
 
-            viewModel.handleInputLayout(it, binding.editZipCodeText, DataUtils.user?.optionalAddress ?: "")
+            viewModel.handleInputLayout(it, binding.editZipCodeText, DataUtils.user?.value?.optionalAddress ?: "")
         }
 
     }

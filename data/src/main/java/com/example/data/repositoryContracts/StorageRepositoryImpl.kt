@@ -29,7 +29,7 @@ class StorageRepositoryImpl @Inject constructor(
 
         return flow<Resource<Boolean>> {
 
-            val profilePictureUrl = storage.reference.child("users/${DataUtils.user?.id}/profile_picture.jpg")
+            val profilePictureUrl = storage.reference.child("users/${DataUtils.user?.value?.id}/profile_picture.jpg")
                 .putStream(fileInputStream)
                 .await()
                 .storage
@@ -39,11 +39,11 @@ class StorageRepositoryImpl @Inject constructor(
 
             firestore
                 .collection(AppUser.COLLECTION_NAME)
-                .document(DataUtils.user?.id!!)
+                .document(DataUtils.user?.value?.id!!)
                 .update("profilePictureUrl", profilePictureUrl)
                 .await()
 
-            DataUtils.user?.profilePictureUrl = profilePictureUrl
+            DataUtils.user?.value!!.profilePictureUrl = profilePictureUrl
 
             emit(Resource.Success(true))
 

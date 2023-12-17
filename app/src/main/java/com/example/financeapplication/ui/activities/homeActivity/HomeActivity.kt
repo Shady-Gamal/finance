@@ -44,11 +44,16 @@ class HomeActivity : AppCompatActivity() {
             }
         }
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
+
         headerBinding = DataBindingUtil.inflate(
             layoutInflater, R.layout.drawer_header, binding
                 .navView, false
         )
+        binding.lifecycleOwner = this
+        headerBinding.lifecycleOwner = this
+
         binding.navView.addHeaderView(headerBinding.root)
+        headerBinding.dataUtils = DataUtils
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -66,11 +71,7 @@ class HomeActivity : AppCompatActivity() {
 
                     if (uiState.isLoaded != null){
 
-
-                        navController.popBackStack()
-                        navController.navigate(R.id.homeFragment)
                         headerBinding.invalidateAll()
-
 
                     }else if (uiState.doesntexist){
 
@@ -91,31 +92,22 @@ class HomeActivity : AppCompatActivity() {
 
 
 
-
-
-
-
-
-
-        headerBinding.dataUtils = DataUtils
-
-
         headerBinding.closeText.setOnClickListener {
 
             binding.drawerLayout.close()
         }
 
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                withContext(Dispatchers.Main.immediate) {
-                    viewModel.refreshDrawerHeader.collect() {
-                        headerBinding.invalidateAll()
-
-                    }
-                }
-            }
-        }
+//        lifecycleScope.launch {
+//            repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                withContext(Dispatchers.Main.immediate) {
+//                    viewModel.refreshDrawerHeader.collect() {
+//                        headerBinding.invalidateAll()
+//
+//                    }
+//                }
+//            }
+//        }
 
 
 
@@ -130,7 +122,7 @@ class HomeActivity : AppCompatActivity() {
                         viewModel.logoutState.collect { uiState ->
                             if (uiState.isLoggedOut) {
 
-                                DataUtils.user = null
+                                DataUtils.user?.value = null
                                 val intent = Intent(this@HomeActivity,AuthenticationActivity::class.java)
                                 this@HomeActivity.startActivity(intent)
                                 this@HomeActivity.finish()

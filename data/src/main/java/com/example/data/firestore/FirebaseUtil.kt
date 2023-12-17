@@ -45,17 +45,17 @@ suspend fun saveRecipient(recipientId : String) {
     val recipientInfo = getUser(recipientId)
 
     getCollectionRef(Recipient.COLLECTION_NAME)
-        .document(user?.id!!)
+        .document(user?.value?.id!!)
         .collection("MyRecipients")
         .document(recipientId)
-        .set(Recipient(user?.id!!,recipientInfo?.id,recipientInfo?.fullName,recipientInfo?.profilePictureUrl))
+        .set(Recipient(user?.value?.id!!,recipientInfo?.id,recipientInfo?.fullName,recipientInfo?.profilePictureUrl))
         .await()
 }
 
 suspend fun fetchRecipients() : MutableList<Recipient> {
 
     val recipientList  = getCollectionRef(Recipient.COLLECTION_NAME)
-        .document(user?.id!!)
+        .document(user?.value?.id!!)
         .collection("MyRecipients")
         .get()
         .await()

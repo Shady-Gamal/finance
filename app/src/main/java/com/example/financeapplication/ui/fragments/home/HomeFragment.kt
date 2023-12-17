@@ -32,6 +32,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.dataUtils = DataUtils
         binding.viewModel = this@HomeFragment.viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
 
         binding.RecipientsButton.setOnClickListener {
@@ -44,8 +45,6 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
 
         }
-
-
     }
 
 

@@ -4,7 +4,7 @@ import com.example.domain.entities.DataUtils.user
 import com.example.domain.entities.RecipientDTO
 
 data class Recipient(
-    val userId : String = user?.id!!,
+    val userId : String = user?.value?.id!!,
     val recipientId:String ?=null,
     val recipientFullName:String ?=null,
     val recipientProfilePictureUrl: String ?= null

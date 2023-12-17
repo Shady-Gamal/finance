@@ -74,7 +74,7 @@ class UserRepositoryImpl @Inject constructor(
 
             firestore
                 .collection(AppUser.COLLECTION_NAME)
-                .document(DataUtils.user?.id!!)
+                .document(DataUtils.user?.value?.id!!)
                 .set(user)
                 .await()
             emit(Resource.Success(true))

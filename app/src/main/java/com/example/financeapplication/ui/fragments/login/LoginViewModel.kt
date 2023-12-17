@@ -32,7 +32,7 @@ class LoginViewModel @Inject constructor(
             signInWithEmailAndPasswordUseCase.invoke(email!!, password!!).collect() {
         when (it){
             is Resource.Success -> {
-                DataUtils.user = it.data
+                DataUtils.user?.value = it.data
                 _uiState.update {currentUiState ->
                     currentUiState.copy( isLoggedIn = true, isLoading = false)
                 }
