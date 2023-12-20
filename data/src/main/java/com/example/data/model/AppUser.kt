@@ -1,7 +1,7 @@
 package com.example.data.model
 
 import com.example.domain.entities.AppUserDTO
-import com.example.domain.entities.BankingInfoDTO
+import com.example.domain.entities.FinanceDTO
 
 data class AppUser(
 
@@ -9,7 +9,6 @@ data class AppUser(
     var fullName : String ?= null,
     var email : String ?= null,
     var profilePictureUrl : String ?= null,
-    var bankingInfo: BankingInfo = BankingInfo(),
     var country : String ?= null,
     var zipCode : String ?= null,
     var address : String ?= null,
@@ -24,11 +23,17 @@ data class AppUser(
     }
 }
 
-data class BankingInfo(
+data class Finance(
     val salary : Int = 0,
     val totalTransfers : Int =0,
-    val availableBalance : Int =0,
-)
+    val balance : Double =0.0,
+) {
+    companion object {
+        val COLLECTION_NAME = "Finance"
+
+    }
+}
+
 fun AppUser.toAppUserDTO() : AppUserDTO {
 
     return AppUserDTO(
@@ -36,7 +41,6 @@ fun AppUser.toAppUserDTO() : AppUserDTO {
         fullName = fullName,
         email = email,
         profilePictureUrl = profilePictureUrl,
-        bankingInfo = bankingInfo.toBankingInfoDTO(),
         phoneNumber = phoneNumber,
         address = address,
         country = country,
@@ -46,11 +50,11 @@ fun AppUser.toAppUserDTO() : AppUserDTO {
         )
 }
 
-fun BankingInfo.toBankingInfoDTO() : BankingInfoDTO {
+fun Finance.toFinanceDTO() : FinanceDTO {
 
-    return BankingInfoDTO(
+    return FinanceDTO(
         salary = salary,
         totalTransfers = totalTransfers,
-        availableBalance = availableBalance
+        balance = balance
     )
 }

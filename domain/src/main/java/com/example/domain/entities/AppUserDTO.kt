@@ -1,7 +1,7 @@
 package com.example.domain.entities
 
 
-import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.flow.MutableStateFlow
 
 data class AppUserDTO(
     var id : String ?= null,
@@ -13,17 +13,16 @@ data class AppUserDTO(
     var zipCode : String ?= null,
     var address : String ?= null,
     var optionalAddress : String ?=null,
-    var bankingInfo: BankingInfoDTO = BankingInfoDTO()
-)
+    )
 
-data class BankingInfoDTO(
+data class FinanceDTO(
     val salary : Int = 0,
     val totalTransfers : Int =0,
-    val availableBalance : Int =0,
+    val balance : Double =0.0,
 )
 
 object DataUtils {
-        var user : MutableLiveData<AppUserDTO?>? = MutableLiveData()
+        var user : MutableStateFlow<AppUserDTO?>? = MutableStateFlow(null)
     }
 
 

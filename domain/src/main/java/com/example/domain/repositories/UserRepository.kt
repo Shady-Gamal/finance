@@ -6,9 +6,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
 
-    fun isUserAuthenticatedInFirebase(): String?
+    fun getCurrentUserId(): String?
 
-    suspend fun signInWithEmailAndPassword(email: String, password:String): Flow<Resource<AppUserDTO?>>
+    suspend fun signInWithEmailAndPassword(email: String, password:String): Flow<Resource<Boolean>>
 
     suspend fun singUpWithEmailAndPassword (email: String, password: String, user : AppUserDTO) : Flow<Resource<Boolean>>
 

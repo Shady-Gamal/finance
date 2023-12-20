@@ -15,7 +15,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.data.firestore.saveRecipient
 import com.example.financeapplication.R
 import com.example.financeapplication.databinding.FragmentAddDialogBinding
 import com.example.financeapplication.ui.fragments.loading.LoadingFragment

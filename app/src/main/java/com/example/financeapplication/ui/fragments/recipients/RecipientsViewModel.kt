@@ -36,7 +36,7 @@ class RecipientsViewModel @Inject constructor(
                           currentUiState.copy( recipientsInfo = it.data)
                       }
 
-                      Log.e("tag", it.data?.get(0)?.recipientFullName.toString() )
+
 
                   }
                   is Resource.Error -> {

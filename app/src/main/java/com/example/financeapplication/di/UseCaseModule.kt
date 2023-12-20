@@ -1,12 +1,14 @@
 package com.example.financeapplication.di
 
+import com.example.domain.repositories.FinanceRepository
 import com.example.domain.repositories.UserRepository
 import com.example.domain.repositories.RecipientRepository
 import com.example.domain.repositories.StorageRepository
 import com.example.domain.useCases.AddRecipientUseCase
 import com.example.domain.useCases.FetchRecipientsUseCase
 import com.example.domain.useCases.GetUserDataUseCase
-import com.example.domain.useCases.IsUserAuthenticatedUseCase
+import com.example.domain.useCases.GetCurrentUserIdUseCase
+import com.example.domain.useCases.GetFinanceDetailsUseCase
 import com.example.domain.useCases.SignInWithEmailAndPasswordUseCase
 import com.example.domain.useCases.SignOutUseCase
 import com.example.domain.useCases.SignUpWithEmailAndPasswordUseCase
@@ -37,14 +39,14 @@ object UseCasesModule {
 
     @Singleton
     @Provides
-    fun provideAddRecipientUseCase(recipientRepository: RecipientRepository) : AddRecipientUseCase{
+    fun provideAddRecipientUseCase(recipientRepository: RecipientRepository): AddRecipientUseCase {
 
         return AddRecipientUseCase(recipientRepository)
     }
 
     @Singleton
     @Provides
-    fun provideFetchRecipientsUseCase(recipientRepository: RecipientRepository) : FetchRecipientsUseCase{
+    fun provideFetchRecipientsUseCase(recipientRepository: RecipientRepository): FetchRecipientsUseCase {
 
         return FetchRecipientsUseCase(recipientRepository)
     }
@@ -52,7 +54,7 @@ object UseCasesModule {
 
     @Singleton
     @Provides
-    fun provideUploadImageUseCase(storageRepository: StorageRepository) : UploadImageUseCase{
+    fun provideUploadImageUseCase(storageRepository: StorageRepository): UploadImageUseCase {
 
         return UploadImageUseCase(storageRepository)
     }
@@ -60,7 +62,7 @@ object UseCasesModule {
 
     @Singleton
     @Provides
-    fun provideSignOutUseCase(userRepository: UserRepository) : SignOutUseCase{
+    fun provideSignOutUseCase(userRepository: UserRepository): SignOutUseCase {
 
         return SignOutUseCase(userRepository)
     }
@@ -68,22 +70,30 @@ object UseCasesModule {
 
     @Singleton
     @Provides
-    fun provideUpdateUserDataUserCase(userRepository: UserRepository) : UpdateUserDataUseCase{
+    fun provideUpdateUserDataUserCase(userRepository: UserRepository): UpdateUserDataUseCase {
 
         return UpdateUserDataUseCase(userRepository)
     }
 
     @Singleton
     @Provides
-    fun provideIsUserAuthenticatedUseCase(userRepository: UserRepository) : IsUserAuthenticatedUseCase{
+    fun provideIsUserAuthenticatedUseCase(userRepository: UserRepository): GetCurrentUserIdUseCase {
 
-        return IsUserAuthenticatedUseCase(userRepository)
+        return GetCurrentUserIdUseCase(userRepository)
     }
 
     @Singleton
     @Provides
-    fun provideGetUserData(userRepository: UserRepository) : GetUserDataUseCase{
+    fun provideGetUserData(userRepository: UserRepository): GetUserDataUseCase {
 
         return GetUserDataUseCase(userRepository)
+    }
+
+
+    @Singleton
+    @Provides
+    fun provideGetFinanceDetailsUseCase(financeRepository: FinanceRepository): GetFinanceDetailsUseCase {
+
+        return GetFinanceDetailsUseCase(financeRepository)
     }
 }

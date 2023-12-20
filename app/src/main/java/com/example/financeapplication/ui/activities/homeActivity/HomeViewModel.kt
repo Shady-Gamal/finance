@@ -1,18 +1,15 @@
 package com.example.financeapplication.ui.activities.homeActivity
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.entities.AppUserDTO
 import com.example.domain.entities.DataUtils
 import com.example.domain.models.Resource
-import com.example.domain.useCases.IsUserAuthenticatedUseCase
+import com.example.domain.useCases.GetCurrentUserIdUseCase
 import com.example.domain.useCases.SignOutUseCase
 import com.example.domain.useCases.GetUserDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,9 +21,11 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     val signOutUseCase: SignOutUseCase,
-    val isUserAuthenticatedUseCase: IsUserAuthenticatedUseCase,
-    val getUserDataUseCase: GetUserDataUseCase
-) : ViewModel() {
+    getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
+    val getUserDataUseCase: GetUserDataUseCase,
+
+
+    ) : ViewModel() {
 
     private val _logoutState = MutableStateFlow(LogoutState())
     val logoutState: StateFlow<LogoutState> = _logoutState.asStateFlow()
@@ -34,68 +33,66 @@ class HomeViewModel @Inject constructor(
     private val _refreshDrawerHeader = Channel<Boolean>()
     val refreshDrawerHeader = _refreshDrawerHeader.receiveAsFlow()
 
-    private val _userDataState = MutableStateFlow(UserDataState())
-    val userDataState: StateFlow<UserDataState> = _userDataState.asStateFlow()
+    private val _userState = MutableStateFlow(UserState())
+    val userState: StateFlow<UserState> = _userState.asStateFlow()
 
 
     private val _isReady = MutableStateFlow(false)
     val isReady = _isReady.asStateFlow()
 
 
-    val isAuthenticated = isUserAuthenticatedUseCase.invoke()
+    val currentUserId = getCurrentUserIdUseCase.invoke()
+
+    init { handleAuthentication() }
 
 
+    private fun handleAuthentication(){
 
-    init {
 
-        viewModelScope.launch {
-            if (isAuthenticated.isNullOrBlank()) {
-                _userDataState.update { currentUiState ->
-                    currentUiState.copy(doesntexist = true)
+        if (currentUserId.isNullOrBlank()) {
+                _userState.update { currentUiState ->
+                    currentUiState.copy(isAuthenticated = false)
                 }
                 _isReady.value = true
 
-                return@launch
-            }else if (DataUtils.user?.value == null) {
+
+            }else if (currentUserId != null ) {
                 _isReady.value = true
 
-                Log.e("when data utils is null", DataUtils.user.toString() )
+                DataUtils.user?.value?.id = currentUserId
+
                 getUserData()
-                return@launch
-            }
-
-            _isReady.value = true
 
             }
+
+
+
 
 
     }
 
     fun getUserData(){
 
+        Log.e("function", "called")
         viewModelScope.launch {
-            getUserDataUseCase.invoke(isAuthenticated!!).collect() {
+            getUserDataUseCase.invoke(currentUserId!!).collect() {
                 when (it) {
                     is Resource.Success -> {
-
                         DataUtils.user?.value = it.data
-                        Log.e("getuser", DataUtils.user?.value?.fullName ?: "hmm again" )
 
-                        _userDataState.update { currentUiState ->
-                            currentUiState.copy(isLoaded = it.data,)
+                        _userState.update { currentUiState ->
+                            currentUiState.copy(isDataLoaded = it.data,)
                         }
-
                     }
-
                     is Resource.Error -> {
-                        _userDataState.update { currentUiState ->
+                        _userState.update { currentUiState ->
                             currentUiState.copy(error = it.message)
 
                         }
                     }
 
                     is Resource.Loading ->{
-                        _userDataState.update { currentUiState ->
+                        _userState.update { currentUiState ->
                             currentUiState.copy(isLoading = true)
 
                         }
@@ -108,6 +105,8 @@ class HomeViewModel @Inject constructor(
         }
 
     }
+
+
     fun signOut(){
         viewModelScope.launch {
             signOutUseCase.invoke().collect() {

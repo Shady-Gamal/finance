@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.financeapplication.R
 import com.example.financeapplication.databinding.FragmentRecipientsBinding
 import com.example.financeapplication.ui.fragments.addDialog.AddDialogFragment
@@ -39,7 +40,12 @@ class RecipientsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        recipientsAdapter = RecipientsAdapter(null)
+        recipientsAdapter = RecipientsAdapter(null){
+
+            val action = RecipientsFragmentDirections.actionRecipientsFragmentToTransferFragment(it)
+            findNavController().navigate(action)
+
+        }
         binding.recipientsRecyclerView.adapter = recipientsAdapter
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -47,7 +53,8 @@ class RecipientsFragment : Fragment() {
                 viewModel.uiState.collect { uiState ->
                     if (!(uiState.recipientsInfo.isNullOrEmpty())) {
                         recipientsAdapter.updateData(uiState.recipientsInfo)
-                        Log.e("somanyquestions", uiState.recipientsInfo?.get(0)?.recipientFullName ?: "ok" )
+
+
                     } else if (uiState.isLoading){
 
                        // LoadingFragment().show(

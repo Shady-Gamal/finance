@@ -29,10 +29,10 @@ class RecipientRepositoryImpl @Inject constructor() : RecipientRepository {
         return flow<Resource<MutableList<RecipientDTO>?>> {
 
             val result = fetchRecipients()
-            Log.e("TAG2", result?.get(0)?.recipientFullName.toString())
-            emit(Resource.Success(result?.map {
+
+            emit(Resource.Success(result.map {
                 it.toARecipientDTO()
-            }?.toMutableList()))
+            }.toMutableList()))
         }.catch {
 
             emit(Resource.Error(it.message ?: "error has occured"))

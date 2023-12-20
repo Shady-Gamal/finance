@@ -10,7 +10,7 @@ import com.example.domain.entities.RecipientDTO
 import com.example.financeapplication.R
 import com.example.financeapplication.databinding.RecipientItemBinding
 
-class RecipientsAdapter(var recipients : List<RecipientDTO?>? = null) : RecyclerView.Adapter<RecipientsAdapter.RecipientViewHolder>() {
+class RecipientsAdapter(var recipients : List<RecipientDTO?>? = null,  private val onItemClick: (RecipientDTO) -> Unit) : RecyclerView.Adapter<RecipientsAdapter.RecipientViewHolder>() {
 
 
 
@@ -26,7 +26,9 @@ class RecipientsAdapter(var recipients : List<RecipientDTO?>? = null) : Recycler
             parent,
             false
             )
-        return RecipientViewHolder(itemBinding)
+        return RecipientViewHolder(itemBinding){
+            onItemClick(recipients?.get(it)!!)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -39,11 +41,18 @@ class RecipientsAdapter(var recipients : List<RecipientDTO?>? = null) : Recycler
     }
 
 
-    class RecipientViewHolder(val itemBinding : RecipientItemBinding) : ViewHolder(itemBinding.root){
+    class RecipientViewHolder(val itemBinding : RecipientItemBinding, onItemClicked: (Int) -> Unit) : ViewHolder(itemBinding.root){
 
         fun bind(recipient:RecipientDTO?){
 
             itemBinding.recipientItem = recipient
+        }
+
+        init {
+            itemBinding.sendButton.setOnClickListener {
+                // this will be called only once.
+                onItemClicked(adapterPosition)
+            }
         }
 
     }

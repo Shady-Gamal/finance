@@ -15,6 +15,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.example.domain.entities.DataUtils
 import com.example.domain.models.Resource
 import com.example.financeapplication.R
 import com.example.financeapplication.databinding.FragmentLoginBinding
@@ -42,6 +43,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+
         binding.viewModel = this@LoginFragment.viewModel
         binding.registerText.setOnClickListener{
             findNavController().navigate(R.id.registerFragment)
@@ -55,13 +57,13 @@ class LoginFragment : Fragment() {
                         requireActivity().finish()
 
 
-                        (parentFragmentManager.findFragmentByTag("homeboi") as? DialogFragment)?.dismiss()
+                        (parentFragmentManager.findFragmentByTag("Fragment") as? DialogFragment)?.dismiss()
 
 
 
                     } else if (uiState.isLoading){
                         LoadingFragment().show(
-                            childFragmentManager, "homeboi"
+                            childFragmentManager, "Fragment"
                         )
                     }
                     else if (!(uiState.error.isNullOrBlank())){

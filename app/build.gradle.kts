@@ -1,3 +1,4 @@
+
 import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
 
 plugins {
@@ -6,6 +7,7 @@ plugins {
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
     id("com.google.gms.google-services")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 
@@ -69,6 +71,7 @@ dependencies {
 
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
 
     //Hilt
     implementation("com.google.dagger:hilt-android:2.48.1")

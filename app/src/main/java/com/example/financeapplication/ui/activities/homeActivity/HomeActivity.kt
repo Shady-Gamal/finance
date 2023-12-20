@@ -1,20 +1,15 @@
 package com.example.financeapplication.ui.activities.homeActivity
 
-import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.view.animation.OvershootInterpolator
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -25,9 +20,7 @@ import com.example.financeapplication.databinding.DrawerHeaderBinding
 import com.example.financeapplication.ui.activities.authenticationActivity.AuthenticationActivity
 import com.example.financeapplication.ui.fragments.loading.LoadingFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
@@ -67,14 +60,15 @@ class HomeActivity : AppCompatActivity() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
 
-                viewModel.userDataState.collect{uiState ->
+                viewModel.userState.collect{ uiState ->
 
-                    if (uiState.isLoaded != null){
+                    if (uiState.isDataLoaded != null){
 
                         headerBinding.invalidateAll()
 
-                    }else if (uiState.doesntexist){
+                    }else if (!uiState.isAuthenticated){
 
+                        DataUtils.user?.value = null
                         val intent = Intent(this@HomeActivity,AuthenticationActivity::class.java)
                         this@HomeActivity.startActivity(intent)
                         this@HomeActivity.finish()

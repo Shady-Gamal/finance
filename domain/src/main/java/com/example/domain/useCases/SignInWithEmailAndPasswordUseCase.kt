@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class SignInWithEmailAndPasswordUseCase @Inject constructor(val userRepository: UserRepository) {
 
-    suspend operator fun invoke(email : String, password:String): Flow<Resource<AppUserDTO?>> {
+    suspend operator fun invoke(email : String, password:String): Flow<Resource<Boolean>> {
             return userRepository.signInWithEmailAndPassword(email, password)
     }
 

@@ -24,9 +24,24 @@
     <fragment
         android:id="@+id/recipientsFragment"
         android:name="com.example.financeapplication.ui.fragments.recipients.RecipientsFragment"
-        tools:layout="@layout/fragment_recipients" />
+        tools:layout="@layout/fragment_recipients" >
+        <action
+            android:id="@+id/action_recipientsFragment_to_transferFragment"
+            app:destination="@id/transferFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.financeapplication.ui.fragments.profile.ProfileFragment"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/transferFragment"
+        android:name="com.example.financeapplication.ui.fragments.transfer.TransferFragment"
+        android:label="fragment_transfer"
+        tools:layout="@layout/fragment_transfer" >
+        <argument
+            android:name="recipient"
+            app:argType="com.example.domain.entities.RecipientDTO"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>

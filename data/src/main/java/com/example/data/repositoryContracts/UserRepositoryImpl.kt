@@ -1,6 +1,5 @@
 package com.example.data.repositoryContracts
 
-import android.util.Log
 import com.example.data.firestore.addUser
 import com.example.data.firestore.getUser
 import com.example.data.model.AppUser
@@ -10,7 +9,6 @@ import com.example.domain.entities.DataUtils
 import com.example.domain.models.Resource
 import com.example.domain.repositories.UserRepository
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -24,18 +22,18 @@ class UserRepositoryImpl @Inject constructor(
     private val auth: FirebaseAuth,
     val firestore: FirebaseFirestore
 ) : UserRepository {
-    override fun isUserAuthenticatedInFirebase(): String? {
+    override fun getCurrentUserId(): String? {
         return auth.currentUser?.uid
     }
 
     override suspend fun signInWithEmailAndPassword(
         email: String,
         password: String,
-    ): Flow<Resource<AppUserDTO?>> {
-        return flow<Resource<AppUserDTO?>> {
-        val result = auth.signInWithEmailAndPassword(email, password).await()
-            val user = getUser(result.user?.uid)
-            emit(Resource.Success(user?.toAppUserDTO()))
+    ): Flow<Resource<Boolean>> {
+        return flow<Resource<Boolean>> {
+      auth.signInWithEmailAndPassword(email, password).await()
+
+            emit(Resource.Success(true))
         }.onStart {
                     emit(Resource.Loading())
         }.catch { emit(Resource.Error(it.message ?: "An error has occurd")) }
