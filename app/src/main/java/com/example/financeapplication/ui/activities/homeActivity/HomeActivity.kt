@@ -63,14 +63,12 @@ class HomeActivity : AppCompatActivity() {
                 viewModel.userState.collect{ uiState ->
 
                     if (uiState.isDataLoaded != null){
-
                         headerBinding.invalidateAll()
 
                     }else if (!uiState.isAuthenticated){
 
                         DataUtils.user?.value = null
-                        val intent = Intent(this@HomeActivity,AuthenticationActivity::class.java)
-                        this@HomeActivity.startActivity(intent)
+                        navController.navigate(R.id.authenticationActivity)
                         this@HomeActivity.finish()
 
                     }else if (uiState.error != null){

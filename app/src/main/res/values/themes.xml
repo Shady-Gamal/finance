@@ -42,9 +42,8 @@
 
         <item name="cardCornerRadius"> 10dp </item>
 
-
-
     </style>
+
 
 
 </resources>

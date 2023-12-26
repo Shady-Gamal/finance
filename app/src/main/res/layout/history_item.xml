@@ -3,40 +3,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-    <variable
-        name="recipientItem"
-        type="com.example.domain.entities.RecipientDTO" />
+            <variable
+                name="TransactionItem"
+                type="com.example.domain.entities.TransactionDTO" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
         <ImageView
             android:id="@+id/profile_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:layout_constraintStart_toStartOf="parent"
-            imageUrl="@{recipientItem.recipientPhoto}"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/recipient_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@id/profile_image"
             app:layout_constraintTop_toTopOf="@id/profile_image"
-            android:text="@{recipientItem.recipientFullName}"
+            android:text="shady gamal"
 
             />
 
-        <Button
+        <TextView
+            android:id="@+id/date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/profile_image"
+            app:layout_constraintTop_toBottomOf="@id/recipient_text"
+            android:text="20-20 20502"
+
+            />
+
+        <TextView
             android:id="@+id/send_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="Send"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="$3020" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

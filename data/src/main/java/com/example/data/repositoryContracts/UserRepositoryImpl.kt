@@ -48,6 +48,7 @@ class UserRepositoryImpl @Inject constructor(
             val result = auth.createUserWithEmailAndPassword(email,password).await()
             val uid = result.user?.uid
             addUser(uid, user)
+
             emit(Resource.Success(true))
         }.onStart { emit(Resource.Loading()) }
             .catch { emit (Resource.Error(it.message ?: "error")) }

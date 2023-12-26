@@ -1,9 +1,11 @@
 package com.example.data.firestore
 
+import android.util.Log
 import com.example.data.model.AppUser
 import com.example.data.model.Recipient
 import com.example.domain.entities.AppUserDTO
 import com.example.domain.entities.DataUtils.user
+import com.example.domain.entities.FinanceDTO
 import com.example.domain.entities.RecipientDTO
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -27,6 +29,12 @@ suspend fun addUser(
         user.id = docRef.id
         docRef.set(user)
         .await()
+
+
+    docRef.collection(Constants.SECURE_COLLECTION_NAME)
+        .document(Constants.FINANCE_COLLECTION_NAME)
+        .set(FinanceDTO())
+        .await()
 }
 
 suspend fun getUser(
@@ -37,6 +45,7 @@ suspend fun getUser(
         .get()
         .await()
 
+
     return user.toObject(AppUser::class.java)
 }
 
@@ -44,12 +53,24 @@ suspend fun saveRecipient(recipientId : String) {
 
     val recipientInfo = getUser(recipientId)
 
-    getCollectionRef(Recipient.COLLECTION_NAME)
-        .document(user?.value?.id!!)
-        .collection("MyRecipients")
-        .document(recipientId)
-        .set(Recipient(user?.value?.id!!,recipientInfo?.id,recipientInfo?.fullName,recipientInfo?.profilePictureUrl))
-        .await()
+    Log.e("ohhhhh", recipientInfo.toString() )
+
+    if (recipientInfo != null) {
+
+        getCollectionRef(Recipient.COLLECTION_NAME)
+            .document(user?.value?.id!!)
+            .collection("MyRecipients")
+            .document(recipientId)
+            .set(
+                Recipient(
+                    user?.value?.id!!,
+                    recipientInfo.id,
+                    recipientInfo.fullName,
+                    recipientInfo.profilePictureUrl
+                )
+            )
+            .await()
+    }
 }
 
 suspend fun fetchRecipients() : MutableList<Recipient> {

@@ -20,6 +20,9 @@
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/slide_out_right"
             />
+        <action
+            android:id="@+id/action_homeFragment_to_authenticationActivity"
+            app:destination="@id/authenticationActivity" />
     </fragment>
     <fragment
         android:id="@+id/recipientsFragment"
@@ -44,4 +47,8 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
+    <activity
+        android:id="@+id/authenticationActivity"
+        android:name="com.example.financeapplication.ui.activities.authenticationActivity.AuthenticationActivity"
+        android:label="AuthenticationActivity" />
 </navigation>

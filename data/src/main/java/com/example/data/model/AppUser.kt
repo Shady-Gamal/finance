@@ -12,7 +12,7 @@ data class AppUser(
     var country : String ?= null,
     var zipCode : String ?= null,
     var address : String ?= null,
-    var phoneNumber : String = "000000000000",
+    var phoneNumber : String ?= null,
     var optionalAddress : String ?=null,
 
 

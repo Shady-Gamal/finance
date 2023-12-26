@@ -36,6 +36,7 @@ val viewModel : TransferViewModel by viewModels()
         super.onViewCreated(view, savedInstanceState)
 
         binding.viewModel = this@TransferFragment.viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
     }
 
 

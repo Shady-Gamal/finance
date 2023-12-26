@@ -39,7 +39,7 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.10.0")
+    implementation("com.google.android.material:material:1.11.0")
     implementation(project(mapOf("path" to ":domain")))
 
 
@@ -52,7 +52,7 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.48.1")
 
     //firebase
-    implementation("com.google.firebase:firebase-auth-ktx:22.2.0")
+    implementation("com.google.firebase:firebase-auth-ktx:22.3.0")
     implementation("com.google.firebase:firebase-firestore")
     implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
 
@@ -61,4 +61,11 @@ dependencies {
 
     //glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    //qrScanner
+
+    implementation ("com.google.android.gms:play-services-code-scanner:16.1.0")
+
+    //qr code generator
+    implementation ("com.google.zxing:core:3.4.0")
 }

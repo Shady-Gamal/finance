@@ -73,7 +73,7 @@ class HomeViewModel @Inject constructor(
 
     fun getUserData(){
 
-        Log.e("function", "called")
+
         viewModelScope.launch {
             getUserDataUseCase.invoke(currentUserId!!).collect() {
                 when (it) {

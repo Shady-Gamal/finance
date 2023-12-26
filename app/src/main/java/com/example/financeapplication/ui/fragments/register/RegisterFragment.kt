@@ -39,7 +39,7 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
             binding.viewModel = this@RegisterFragment.viewModel
-
+            val loadingFragment = LoadingFragment()
         binding.loginText.setOnClickListener{
             findNavController().popBackStack()
         }
@@ -51,12 +51,12 @@ class RegisterFragment : Fragment() {
                     if (uiState.isRegistered) {
                         findNavController().popBackStack()
                     } else if (uiState.isLoading){
-                        LoadingFragment().show(
+                        loadingFragment.show(
                             childFragmentManager, "loading_fragment")
                     }
-                    else if (!(uiState.error.isNullOrBlank())){
+                    else if (uiState.error != null){
                         Toast.makeText(requireContext(), uiState.error, Toast.LENGTH_SHORT).show()
-
+                        loadingFragment.dismiss()
                     }
 
                 }

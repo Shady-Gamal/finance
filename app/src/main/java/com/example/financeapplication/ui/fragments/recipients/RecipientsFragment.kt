@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.financeapplication.R
 import com.example.financeapplication.databinding.FragmentRecipientsBinding
 import com.example.financeapplication.ui.fragments.addDialog.AddDialogFragment
+
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -74,11 +75,19 @@ class RecipientsFragment : Fragment() {
 
 
 
+
         binding.addButton.setOnClickListener {
 
-            AddDialogFragment().show(childFragmentManager,"homeboi")
+
+
+            AddDialogFragment().show(childFragmentManager,"add_fragment")
+
         }
+
+
+
     }
+
 
 
 

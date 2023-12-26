@@ -18,7 +18,7 @@ data class AppUserDTO(
 data class FinanceDTO(
     val salary : Int = 0,
     val totalTransfers : Int =0,
-    val balance : Double =0.0,
+    var balance : Double =0.0,
 )
 
 object DataUtils {

@@ -1,5 +1,7 @@
 package com.example.financeapplication.ui.fragments.home
 
+import android.graphics.Bitmap
+import android.graphics.Color
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,7 +11,6 @@ import com.example.domain.entities.FinanceDTO
 import com.example.domain.models.Resource
 import com.example.domain.useCases.GetFinanceDetailsUseCase
 import com.example.domain.useCases.GetCurrentUserIdUseCase
-import com.example.financeapplication.ui.fragments.login.LoginState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,9 +35,6 @@ class HomeViewModel @Inject constructor(
     val currentUserIdUseCase = getCurrentUserIdUseCase.invoke()
 
 
-    init {
-        getFinanceDetails()
-    }
 
     fun getFinanceDetails(){
 
@@ -71,6 +69,8 @@ class HomeViewModel @Inject constructor(
 
 
     }
+
+
 
 
 }

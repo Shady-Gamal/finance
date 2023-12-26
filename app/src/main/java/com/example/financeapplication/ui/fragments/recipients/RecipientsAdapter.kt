@@ -10,7 +10,7 @@ import com.example.domain.entities.RecipientDTO
 import com.example.financeapplication.R
 import com.example.financeapplication.databinding.RecipientItemBinding
 
-class RecipientsAdapter(var recipients : List<RecipientDTO?>? = null,  private val onItemClick: (RecipientDTO) -> Unit) : RecyclerView.Adapter<RecipientsAdapter.RecipientViewHolder>() {
+class RecipientsAdapter(var recipients : List<RecipientDTO?>? = null,  private val onItemClick: (RecipientDTO) -> Unit) : Adapter<RecipientsAdapter.RecipientViewHolder>() {
 
 
 

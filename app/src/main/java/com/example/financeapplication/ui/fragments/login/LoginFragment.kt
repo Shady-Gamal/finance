@@ -43,7 +43,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-
+        val loadingFragment = LoadingFragment()
         binding.viewModel = this@LoginFragment.viewModel
         binding.registerText.setOnClickListener{
             findNavController().navigate(R.id.registerFragment)
@@ -57,16 +57,17 @@ class LoginFragment : Fragment() {
                         requireActivity().finish()
 
 
-                        (parentFragmentManager.findFragmentByTag("Fragment") as? DialogFragment)?.dismiss()
+
 
 
 
                     } else if (uiState.isLoading){
-                        LoadingFragment().show(
+                        loadingFragment.show(
                             childFragmentManager, "Fragment"
                         )
                     }
                     else if (!(uiState.error.isNullOrBlank())){
+                        loadingFragment.dismiss()
                         Toast.makeText(requireContext(), uiState.error, Toast.LENGTH_SHORT).show()
 
                     }
