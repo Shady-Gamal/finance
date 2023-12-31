@@ -5,5 +5,6 @@ object Constants {
     const val SECURE_COLLECTION_NAME = "Secure"
     const val FINANCE_COLLECTION_NAME = "Finance"
     const val History_Document_NAME = "History"
+    const val History_Collection_NAME = "History"
 
 }

@@ -2,6 +2,7 @@ package com.example.data.repositoryContracts
 
 import android.util.Log
 import com.example.data.model.AppUser
+import com.example.data.model.Recipient
 import com.example.domain.entities.DataUtils
 import com.example.domain.models.Resource
 import com.example.domain.repositories.StorageRepository
@@ -37,11 +38,14 @@ class StorageRepositoryImpl @Inject constructor(
                 .await()
                 .toString()
 
+
             firestore
                 .collection(AppUser.COLLECTION_NAME)
                 .document(DataUtils.user?.value?.id!!)
                 .update("profilePictureUrl", profilePictureUrl)
                 .await()
+
+
 
             DataUtils.user?.value!!.profilePictureUrl = profilePictureUrl
 

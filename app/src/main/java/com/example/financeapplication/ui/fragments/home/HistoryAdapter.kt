@@ -5,15 +5,21 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.domain.entities.RecipientDTO
 import com.example.domain.entities.TransactionDTO
 import com.example.financeapplication.R
 import com.example.financeapplication.databinding.HistoryItemBinding
 
-class HistoryAdapter( var transactions : List<TransactionDTO>) : Adapter<HistoryAdapter.HistoryViewHolder>() {
+class HistoryAdapter( var transactions : List<TransactionDTO?>?) : Adapter<HistoryAdapter.HistoryViewHolder>() {
 
 
 
 
+
+    fun updateData(transactions : List<TransactionDTO?>?) {
+        this.transactions = transactions
+      notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         val itemBinding : HistoryItemBinding = DataBindingUtil.inflate(
@@ -27,12 +33,12 @@ class HistoryAdapter( var transactions : List<TransactionDTO>) : Adapter<History
     }
 
     override fun getItemCount(): Int {
-        return transactions.size
+        return transactions?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        val item = transactions.get(position)
-        holder.bind(item)
+        val item = transactions?.get(position)
+        holder.bind(item!!)
     }
 
     class HistoryViewHolder(val itemBinding : HistoryItemBinding) : ViewHolder(itemBinding.root){

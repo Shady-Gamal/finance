@@ -9,11 +9,17 @@ import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.domain.entities.DataUtils
+import com.example.domain.entities.RecipientDTO
 import com.example.financeapplication.R
 import com.example.financeapplication.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -21,6 +27,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding : FragmentHomeBinding
     val viewModel : HomeViewModel by viewModels()
+    lateinit var historyAdapter: HistoryAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -35,6 +42,28 @@ class HomeFragment : Fragment() {
         binding.viewModel = this@HomeFragment.viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        historyAdapter = HistoryAdapter(null)
+        binding.recentTransactionsRecyclerview.adapter = historyAdapter
+
+
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED)  {
+
+                viewModel.recentTransactionsState.collect{uiState ->
+
+                    if (uiState.recentTransactions != null){
+
+                            historyAdapter.updateData(uiState.recentTransactions)
+
+
+                    }
+
+                }
+
+
+            }}
+
 
         binding.RecipientsButton.setOnClickListener {
 
@@ -46,12 +75,14 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
 
         }
+
     }
 
     override fun onStart() {
         super.onStart()
 
         viewModel.getFinanceDetails()
+        viewModel.getRecentTransactions()
     }
 
 

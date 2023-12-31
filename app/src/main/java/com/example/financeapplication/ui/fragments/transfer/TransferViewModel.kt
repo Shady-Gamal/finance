@@ -32,7 +32,7 @@ class TransferViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(TransferState())
     val uiState: StateFlow<TransferState> = _uiState.asStateFlow()
     var transferValue : String ?= null
-    val receiverId = TransferFragmentArgs.fromSavedStateHandle(savedStateHandle).recipient?.recipientId!!
+    val receiverInfo= TransferFragmentArgs.fromSavedStateHandle(savedStateHandle).recipient
 
     private val _financeState = MutableStateFlow(FinanceDetailsState())
     val financeState: StateFlow<FinanceDetailsState> = _financeState.asStateFlow()
@@ -55,7 +55,7 @@ class TransferViewModel @Inject constructor(
         fun updateFirestoreBalance(){
 
             viewModelScope.launch {
-                transferFundsUserCase.invoke(receiverId, transferValue!!.toDouble()).collect(){
+                transferFundsUserCase.invoke(receiverInfo?.recipientId!!, transferValue!!.toDouble()).collect(){
                     when (it){
                         is Resource.Success -> {
                             addTransactionToHistory()
@@ -115,7 +115,9 @@ class TransferViewModel @Inject constructor(
     fun addTransactionToHistory(){
        val transaction = TransactionDTO(senderId = DataUtils.user?.value?.id,
            value = transferValue?.toDouble(),
-           receiverId = receiverId,
+           receiverId = receiverInfo?.recipientId,
+           receiverName = receiverInfo?.recipientFullName,
+           profilePic = receiverInfo?.recipientPhoto
 
            )
         viewModelScope.launch {

@@ -214,8 +214,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/balance_card"
+            app:layout_constraintStart_toStartOf="parent"
             android:text="Recent Transactions"
             android:textSize="35sp"
+            android:layout_marginHorizontal="30dp"
             android:id="@+id/recent_Transactions_text"
             />
 
@@ -223,7 +225,11 @@
             android:id="@+id/recent_Transactions_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="30dp"
             app:layout_constraintTop_toBottomOf="@id/recent_Transactions_text"
+            app:layout_constraintBottom_toBottomOf="parent"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

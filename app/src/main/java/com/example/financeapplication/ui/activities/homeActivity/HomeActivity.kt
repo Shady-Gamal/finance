@@ -20,7 +20,9 @@ import com.example.financeapplication.databinding.DrawerHeaderBinding
 import com.example.financeapplication.ui.activities.authenticationActivity.AuthenticationActivity
 import com.example.financeapplication.ui.fragments.loading.LoadingFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
@@ -90,16 +92,16 @@ class HomeActivity : AppCompatActivity() {
         }
 
 
-//        lifecycleScope.launch {
-//            repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                withContext(Dispatchers.Main.immediate) {
-//                    viewModel.refreshDrawerHeader.collect() {
-//                        headerBinding.invalidateAll()
-//
-//                    }
-//                }
-//            }
-//        }
+     lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                withContext(Dispatchers.Main.immediate) {
+                    viewModel.refreshDrawerHeader.collect() {
+                        headerBinding.invalidateAll()
+
+                    }
+                }
+            }
+        }
 
 
 
