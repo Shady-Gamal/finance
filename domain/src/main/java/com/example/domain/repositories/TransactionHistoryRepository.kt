@@ -7,8 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface TransactionHistoryRepository {
 
     suspend fun addTransactionDetails(transaction : TransactionDTO) : Flow<Resource<Boolean>>
-
-    suspend fun getTransactionHistory(id : String) : Flow<Resource<List<TransactionDTO>>>
-
     suspend fun getRecentTransactions(id : String) : Flow<Resource<List<TransactionDTO>>>
+    suspend fun getReceivedTransactionHistory(id: String): Flow<Resource<List<TransactionDTO>>>
+    suspend fun getSentTransactionHistory(id: String): Flow<Resource<List<TransactionDTO>>>
 }

@@ -10,6 +10,7 @@ data class Transaction(
     val receiverName: String ?=null,
     val profilePic : String ?= null,
     val value : Double ?= null,
+    var isSender : Boolean ?= true,
     val date: Long ?= System.currentTimeMillis()
 )
 
@@ -24,7 +25,7 @@ fun Transaction.toTransactionDTO() : TransactionDTO {
         profilePic = profilePic,
         value = value,
         date = date,
-
+        isSender = isSender
     )
 
 

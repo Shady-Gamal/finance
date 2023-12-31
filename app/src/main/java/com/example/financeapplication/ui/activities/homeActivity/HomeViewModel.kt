@@ -113,7 +113,7 @@ class HomeViewModel @Inject constructor(
 
                 when (it){
                         is Resource.Success -> {
-                            Log.e("TAG", "signOut: ", )
+
                             _logoutState.update { currentUiState ->
                                 currentUiState.copy( isLoggedOut = true, isLoading = false)
                             }
@@ -123,7 +123,7 @@ class HomeViewModel @Inject constructor(
                             currentUiState.copy( isLoading = true)
                         }
                         is Resource.Error -> {
-                            Log.e("TAG", "signOut: ", )
+
                             _logoutState.update { currentUiState ->
                                 currentUiState.copy(error = it.message, isLoading = false)
 

@@ -8,5 +8,6 @@ data class TransactionDTO(
     val receiverName : String ?= null,
     val value : Double ?= null,
     val profilePic : String ?= null,
+    var isSender : Boolean ?= true,
     val date: Long ?= System.currentTimeMillis()
 )

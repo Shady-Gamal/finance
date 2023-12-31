@@ -53,7 +53,6 @@ suspend fun saveRecipient(recipientId : String) {
 
     val recipientInfo = getUser(recipientId)
 
-    Log.e("ohhhhh", recipientInfo.toString() )
 
     if (recipientInfo != null) {
 

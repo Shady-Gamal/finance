@@ -24,35 +24,49 @@ class TransactionHistoryRepositoryImpl @Inject constructor(
 
         return flow<Resource<Boolean>> {
 
-           val doc = firestore
+           val senderDoc = firestore
                 .collection(Constants.History_Collection_NAME)
                 .document(DataUtils.user?.value?.id!!)
                 .collection(Constants.History_Collection_NAME)
                 .document()
+             val transactionId = senderDoc.id
 
-            transaction.id = doc.id
+            transaction.id = transactionId
 
-                doc
+                senderDoc
                 .set(transaction)
                 .await()
+
+               val receiverDoc = firestore
+                .collection(Constants.History_Collection_NAME)
+                .document(transaction.receiverId!!)
+                .collection(Constants.History_Collection_NAME)
+                .document(transactionId)
+
+                transaction.isSender = false
+                receiverDoc
+                .set(transaction)
+                .await()
+
 
 
             emit(Resource.Success(true))
         }.catch {
             emit(Resource.Error(it.message ?: "error"))
-            Log.e("TAG2", it.message.toString() )
+
         }.onStart {
 
             emit(Resource.Loading())
         }
     }
 
-    override suspend fun getTransactionHistory(id: String): Flow<Resource<List<TransactionDTO>>> {
+    override suspend fun getSentTransactionHistory(id: String): Flow<Resource<List<TransactionDTO>>> {
         return flow<Resource<List<TransactionDTO>>> {
             val transactionHistory = firestore
                 .collection(Constants.History_Collection_NAME)
                 .document(DataUtils.user?.value?.id!!)
                 .collection(Constants.History_Collection_NAME)
+                .whereEqualTo("sender", true)
                 .get()
                 .await()
             val history = transactionHistory.toObjects(Transaction::class.java).toList()
@@ -61,6 +75,30 @@ class TransactionHistoryRepositoryImpl @Inject constructor(
          emit(Resource.Success(history.map {
              it.toTransactionDTO() }
          ))
+        }.catch {
+            emit(Resource.Error(it.message ?: " error"))
+        }.onStart {
+            emit(Resource.Loading())
+        }
+
+
+
+    }
+    override suspend fun getReceivedTransactionHistory(id: String): Flow<Resource<List<TransactionDTO>>> {
+        return flow<Resource<List<TransactionDTO>>> {
+            val transactionHistory = firestore
+                .collection(Constants.History_Collection_NAME)
+                .document(DataUtils.user?.value?.id!!)
+                .collection(Constants.History_Collection_NAME)
+                .whereEqualTo("sender", false)
+                .get()
+                .await()
+            val history = transactionHistory.toObjects(Transaction::class.java).toList()
+
+
+            emit(Resource.Success(history.map {
+                it.toTransactionDTO() }
+            ))
         }.catch {
             emit(Resource.Error(it.message ?: " error"))
         }.onStart {
@@ -84,7 +122,7 @@ class TransactionHistoryRepositoryImpl @Inject constructor(
 
            val historyList = history.toObjects(Transaction::class.java).toList()
 
-           Log.e("TAG", historyList.toString())
+
 
            emit(Resource.Success(historyList.map {
                it.toTransactionDTO()
@@ -92,7 +130,7 @@ class TransactionHistoryRepositoryImpl @Inject constructor(
 
 
        }.catch {
-           emit(Resource.Error(it.message ?: " error what"))
+
        }.onStart {
            emit(Resource.Loading())
        }

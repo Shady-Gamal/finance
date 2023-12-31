@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_homeFragment_to_authenticationActivity"
             app:destination="@id/authenticationActivity" />
+        <action
+            android:id="@+id/action_homeFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
     </fragment>
     <fragment
         android:id="@+id/recipientsFragment"
@@ -51,4 +54,8 @@
         android:id="@+id/authenticationActivity"
         android:name="com.example.financeapplication.ui.activities.authenticationActivity.AuthenticationActivity"
         android:label="AuthenticationActivity" />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.financeapplication.ui.fragments.history.HistoryFragment"
+        android:label="HistoryFragment" />
 </navigation>

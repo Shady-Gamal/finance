@@ -117,9 +117,9 @@ class TransferViewModel @Inject constructor(
            value = transferValue?.toDouble(),
            receiverId = receiverInfo?.recipientId,
            receiverName = receiverInfo?.recipientFullName,
-           profilePic = receiverInfo?.recipientPhoto
-
-           )
+           profilePic = receiverInfo?.recipientPhoto,
+           senderName = DataUtils.user?.value?.fullName
+       )
         viewModelScope.launch {
             addTransactionDetailsUseCase.invoke(transaction).collect(){
 

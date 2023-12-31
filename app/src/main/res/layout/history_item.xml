@@ -30,7 +30,7 @@
             app:layout_constraintStart_toEndOf="@id/profile_image"
             app:layout_constraintTop_toTopOf="@id/profile_image"
             android:layout_marginStart="10dp"
-            android:text="@{transactionItem.receiverName}"
+
 
 
             />

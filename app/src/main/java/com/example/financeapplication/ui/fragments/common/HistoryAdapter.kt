@@ -1,11 +1,10 @@
-package com.example.financeapplication.ui.fragments.home
+package com.example.financeapplication.ui.fragments.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.example.domain.entities.RecipientDTO
 import com.example.domain.entities.TransactionDTO
 import com.example.financeapplication.R
 import com.example.financeapplication.databinding.HistoryItemBinding
@@ -46,6 +45,11 @@ class HistoryAdapter( var transactions : List<TransactionDTO?>?) : Adapter<Histo
         fun bind( transaction : TransactionDTO ){
 
             itemBinding.transactionItem = transaction
+
+            if (transaction.isSender == true){
+
+                itemBinding.recipientText.text = transaction.receiverName
+            }
         }
     }
 }

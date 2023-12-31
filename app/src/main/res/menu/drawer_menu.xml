@@ -19,7 +19,7 @@
         android:id="@+id/line2"
         >
         <item
-            android:id="@id/recipientsFragment"
+            android:id="@id/historyFragment"
             android:title="History"
             />
 

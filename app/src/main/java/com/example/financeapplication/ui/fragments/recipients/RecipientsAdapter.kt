@@ -38,6 +38,10 @@ class RecipientsAdapter(var recipients : List<RecipientDTO?>? = null,  private v
     override fun onBindViewHolder(holder: RecipientViewHolder, position: Int) {
         val item = recipients?.get(position)
         holder.bind(item)
+
+
+
+
     }
 
 
